@@ -26,11 +26,13 @@ def webhook():
 
     res = process_request(req)
 
+    print "Resulting library is " + res
+
     res = json.dumps(res, indent=4)
     # print(res)
     r = make_response(res)
     r.headers['Content-Type'] = 'application/json'
-    print r
+    print "PRINTING R " + r
     return r
 
 
