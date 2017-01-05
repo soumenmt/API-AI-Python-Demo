@@ -30,6 +30,7 @@ def webhook():
     # print(res)
     r = make_response(res)
     r.headers['Content-Type'] = 'application/json'
+    print r
     return r
 
 
@@ -98,8 +99,8 @@ def make_webhook_result(data):
 
 
 if __name__ == '__main__':
-    port = int(os.getenv('PORT', 5000))
+    # port = int(os.getenv('PORT', 5000))
+    #
+    # print "Starting app on port %d" % port
 
-    print "Starting app on port %d" % port
-
-    app.run(debug=False, port=port, host='0.0.0.0')
+    app.run(debug=False)#, port=port, host='0.0.0.0')
