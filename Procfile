@@ -1,1 +1,1 @@
-web: python API-AI-Python-Demo.py
+web: python app.py
