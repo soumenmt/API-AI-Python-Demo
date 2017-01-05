@@ -12,9 +12,10 @@ from flask import make_response
 app = Flask(__name__)
 
 
-@app.route('')
+@app.route('/')
 def root():
     return "Hello World"
+
 
 @app.route('/webhook', methods=['POST'])
 def webhook():
