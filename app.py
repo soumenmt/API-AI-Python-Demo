@@ -1,4 +1,4 @@
-# !/usr/bin/env python
+#!/usr/bin/env python
 
 import urllib
 import json
@@ -12,11 +12,6 @@ from flask import make_response
 app = Flask(__name__)
 
 
-@app.route('/')
-def hello_world():
-    return 'Hello World!'
-
-
 @app.route('/webhook', methods=['POST'])
 def webhook():
     req = request.get_json(silent=True, force=True)
@@ -24,7 +19,7 @@ def webhook():
     print("Request:")
     print(json.dumps(req, indent=4))
 
-    res = process_request(req)
+    res = processRequest(req)
 
     res = json.dumps(res, indent=4)
     # print(res)
@@ -33,21 +28,21 @@ def webhook():
     return r
 
 
-def process_request(req):
+def processRequest(req):
     if req.get("result").get("action") != "yahooWeatherForecast":
         return {}
     baseurl = "https://query.yahooapis.com/v1/public/yql?"
-    yql_query = make_yql_query(req)
+    yql_query = makeYqlQuery(req)
     if yql_query is None:
         return {}
     yql_url = baseurl + urllib.urlencode({'q': yql_query}) + "&format=json"
     result = urllib.urlopen(yql_url).read()
     data = json.loads(result)
-    res = make_webhook_result(data)
+    res = makeWebhookResult(data)
     return res
 
 
-def make_yql_query(req):
+def makeYqlQuery(req):
     result = req.get("result")
     parameters = result.get("parameters")
     city = parameters.get("geo-city")
@@ -57,7 +52,7 @@ def make_yql_query(req):
     return "select * from weather.forecast where woeid in (select woeid from geo.places(1) where text='" + city + "')"
 
 
-def make_webhook_result(data):
+def makeWebhookResult(data):
     query = data.get('query')
     if query is None:
         return {}
