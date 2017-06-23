@@ -8,10 +8,10 @@ import os
 from flask import Flask
 from flask import request
 from flask import make_response
-#import requests
+import requests
 # Flask app should start in global layout
 app = Flask(__name__)
-@app.route('/webhook', methods=['POST'])
+@app.route('/webhook')
 def index():
 	r = requests.get('http://192.168.66.128:9080/prweb/PRRestService/comm/commdata/GetServiceStatus')
 	c = r.content
